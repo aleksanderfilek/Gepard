@@ -28,8 +28,8 @@ void Player::Start()
   camera->SetFov(70.0f);
   camera->SetNearFarPlane(0.1f, 1000.0f);
   cameraActor->AddComponent(camera);
-  cameraActor->GetTransformRef()->SetLocalRotation(Hero::Quaternion(0.0f, Hero::deg2rad(45.0f), 0.0f));
-  cameraActor->GetTransformRef()->SetLocalPosition(Hero::Float3(0.0f, 10.0f, -10.0f));
+  cameraActor->GetTransformRef()->SetLocalRotation(Hero::Quaternion(0.0f, Hero::deg2rad(30.0f), 0.0f));
+  cameraActor->GetTransformRef()->SetLocalPosition(Hero::Float3(0.0f, 5.7f, -10.0f));
   AddChild(cameraActor);
 
   invProjectionMat = camera->GetProjectionMatrix().inverted();
@@ -108,10 +108,10 @@ Hero::Float3 Player::GetPointUnderCursor()
     1.0f - (2.0f * (float)mousePosition.y / 720.0f), 
     1.0f, 1.0f);
 
-  Hero::Float3 worldPos = invViewMat * Hero::Float4(Hero::Float3(invProjectionMat * screenCoord));
+  Hero::Float4 worldPos = invViewMat * invProjectionMat * screenCoord;
 
   Hero::Float3 cameraPosition = cameraActor->GetTransformRef()->GetWorldPosition();
-  Hero::Float3 dir = Hero::Float3(worldPos - cameraPosition);
+  Hero::Float3 dir = Hero::Float3(worldPos);
   dir.normalize();
 
   float x = cameraPosition.x - ((cameraPosition.y * dir.x)/dir.y);

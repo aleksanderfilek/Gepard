@@ -12,7 +12,7 @@ private:
   
   float rotY = 0.0f;
   Hero::Camera* camera;
-  Actor* cameraActor;
+  Hero::Actor* cameraActor;
   Hero::Matrix4x4 invProjectionMat;
 
   class GroundSelection* selection = nullptr;

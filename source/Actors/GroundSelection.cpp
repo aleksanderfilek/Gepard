@@ -22,8 +22,7 @@ void GroundSelection::Start()
 
     staticMesh = new Hero::StaticMesh();
     staticMesh->SetMesh((Hero::Mesh*)resources->Get(SID("Plane1x1")));
-    Hero::Material* material = (Hero::Material*)resources->Get(SID("M_GroundSelection"));
-    staticMesh->SetMaterial(material);
+    staticMesh->SetMaterial((Hero::Material*)resources->Get(SID("M_GroundSelection")));
     AddComponent(staticMesh);
 
 }

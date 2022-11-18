@@ -10,6 +10,8 @@
 #include "../Hero/Graphics/Mesh.hpp"
 #include "../Actors/Player.hpp"
 #include "../Hero/Actors/Systems/ForwardRenderer.hpp"
+#include "../Actors/Character.hpp"
+#include "../Actors/Building.hpp"
 
 #include<iostream>
 
@@ -18,8 +20,9 @@ void MainMenu::Start()
     Scene::Start();
 
     window = Hero::Core::getSystem<Hero::System::Window>(SID("Window"));
-    window->setBackgroundColor({0xFF,0xF1,0xD2,0xFF});
-
+    window->setBackgroundColor({215,227,224,0xFF});
+    window->setDepthTest(true);
+    
     Hero::Resources* resources = Hero::Core::getSystem<Hero::Resources>(SID("Resources"));
     resources->Add(SID("RendererShader"), PATH(assets/rendererShader.he));
     resources->Add(SID("S_Spritebatch"), PATH(assets/S_Spritebatch.he));
@@ -32,6 +35,8 @@ void MainMenu::Start()
 
     AddActor(new Hero::ForwardRenderer(SID("Renderer")));
     AddActor(new Player(SID("Player")));
+    AddActor(new Character(SID("Character")));
+    AddActor(new Building(SID("Building")));
 }
 
 void MainMenu::Update()
