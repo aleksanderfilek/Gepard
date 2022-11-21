@@ -12,6 +12,7 @@
 #include "../Hero/Actors/Systems/ForwardRenderer.hpp"
 #include "../Actors/Character.hpp"
 #include "../Actors/Building.hpp"
+#include "../World/Components/Pathfinding.hpp"
 
 #include<iostream>
 
