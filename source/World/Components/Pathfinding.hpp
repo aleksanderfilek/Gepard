@@ -12,7 +12,7 @@ struct NavNode
   float GetFCost() { return gCost + hCost; }
 };
 
-class Pathfinding/* : public Hero::ActorComponent*/
+class Pathfinding : public Hero::ActorComponent
 {
 private:
   bool* walkableArea;
@@ -28,6 +28,6 @@ public:
   Pathfinding(uint32_t Height, uint32_t Width);
   ~Pathfinding();
 
-  SetWalkableState(Hero::Float2 Position, Hero::Float2 Size, bool Walkable);
+  SetWalkableState(Hero::Int2 Position, Hero::Int2 Size, bool Walkable);
   bool GetPathToPoint(Hero::Float2 StartPoint, Hero::Float2 DestinationPoint, Hero::Float2*& Path, uint32_t& PathLenght);
 };

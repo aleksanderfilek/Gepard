@@ -9,7 +9,7 @@
 #include <vector>
 #include <unordered_map>
 #include <typeinfo>
-
+#include <iostream>
 namespace Hero
 {
 
@@ -49,7 +49,7 @@ public:
     inline Sid GetName(){ return name; }
     void SetName(const Sid& Name){ name = Name; }
     inline uint32_t GetId(){ return name.id; }
-    Sid GetType() { return SID(typeid(*this).name()); }
+    //Sid GetType() { return SID(typeid(*this).name()); }
 
     Transform GetTransform() const { return *transform; }
     Transform* GetTransformRef() { return transform; }
@@ -61,6 +61,22 @@ public:
     HERO Actor* GetChild(uint32_t index);
 
     HERO void AddComponent(class ActorComponent* Component);
+
+    template<class T> 
+    class ActorComponent* GetComponent()
+    {
+        for(auto i: componentsLut)
+        {
+            std::cout<<i.first<<std::endl;
+        }
+        auto result = componentsLut.find(GetType<T>());
+        if(result == componentsLut.end())
+        {
+            return nullptr;
+        }
+
+        return result->second;
+    }
 
     HERO virtual uint32_t Serialize(uint8_t*& bytes) override;
     HERO virtual void Deserialize(uint8_t* bytes, uint32_t size) override;

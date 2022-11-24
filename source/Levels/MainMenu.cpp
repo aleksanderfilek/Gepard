@@ -10,11 +10,15 @@
 #include "../Hero/Graphics/Mesh.hpp"
 #include "../Actors/Player.hpp"
 #include "../Hero/Actors/Systems/ForwardRenderer.hpp"
-#include "../Actors/Character.hpp"
-#include "../Actors/Building.hpp"
-#include "../World/Components/Pathfinding.hpp"
 
 #include<iostream>
+
+void MainMenu::Load()
+{
+    Hero::Resources* resources = Hero::Core::getSystem<Hero::Resources>(SID("Resources"));
+    resources->Add(SID("RendererShader"), PATH(assets/rendererShader.he));
+    resources->Add(SID("S_Spritebatch"), PATH(assets/S_Spritebatch.he));
+}
 
 void MainMenu::Start()
 {
@@ -25,8 +29,6 @@ void MainMenu::Start()
     window->setDepthTest(true);
     
     Hero::Resources* resources = Hero::Core::getSystem<Hero::Resources>(SID("Resources"));
-    resources->Add(SID("RendererShader"), PATH(assets/rendererShader.he));
-    resources->Add(SID("S_Spritebatch"), PATH(assets/S_Spritebatch.he));
 
     Hero::System::UserInterface* ui = Hero::Core::getSystem<Hero::System::UserInterface>(SID("Ui"));
     ui->setShader((Hero::Shader*)resources->Get(SID("S_Spritebatch")));
@@ -36,8 +38,6 @@ void MainMenu::Start()
 
     AddActor(new Hero::ForwardRenderer(SID("Renderer")));
     AddActor(new Player(SID("Player")));
-    AddActor(new Character(SID("Character")));
-    AddActor(new Building(SID("Building")));
 }
 
 void MainMenu::Update()

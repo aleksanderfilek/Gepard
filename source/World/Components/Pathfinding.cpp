@@ -17,12 +17,11 @@ Pathfinding::~Pathfinding()
   delete[] walkableArea;
 }
 
-Pathfinding::SetWalkableState(Hero::Float2 Position, Hero::Float2 Size, bool Walkable)
+Pathfinding::SetWalkableState(Hero::Int2 Position, Hero::Int2 Size, bool Walkable)
 {
-  Hero::Int2 position = WorldToArea(Position);
-  for(int y = position.y; y < position.y + (int)Size.y; y++)
+  for(int y = Position.y; y < Position.y + Size.y; y++)
   {
-    for(int x = position.x; x < position.x + (int)Size.x; x++)
+    for(int x = Position.x; x < Position.x + Size.x; x++)
     {
       walkableArea[CoordToIndex({x, y})] = Walkable;
     }

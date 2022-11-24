@@ -9,6 +9,7 @@ private:
     class UI_MainMenu* mainMenu;
     Hero::System::Window* window;
 public:
+    void Load() override;
     void Start() override;
     void Update() override;
     void End() override;

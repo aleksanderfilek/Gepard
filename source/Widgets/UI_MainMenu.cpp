@@ -23,12 +23,12 @@ UI_MainMenu::UI_MainMenu() : Hero::UI::Widget()
     Hero::UI::HorizontalAnchor::STRETCH, Hero::UI::VerticalAnchor::TOP);
     add("panel", panel);
     
-    Hero::UI::Label* title = new Hero::UI::Label();
-    title->setAlligment(Hero::UI::Alligment::CENTER);
-    title->SetRelativeTransform(Hero::Int4(0, 0, 0, 50), 
-        Hero::UI::HorizontalAnchor::STRETCH, Hero::UI::VerticalAnchor::TOP);
-    title->setFont((Hero::Font*)resources->Get(SID("Arial48")));
-    title->setText("Gepard");
-    title->apply();
-    add("Title", title);
+    // Hero::UI::Label* title = new Hero::UI::Label();
+    // title->setAlligment(Hero::UI::Alligment::CENTER);
+    // title->SetRelativeTransform(Hero::Int4(0, 0, 0, 50), 
+    //     Hero::UI::HorizontalAnchor::STRETCH, Hero::UI::VerticalAnchor::TOP);
+    // title->setFont((Hero::Font*)resources->Get(SID("Arial48")));
+    // title->setText("Gepard");
+    // title->apply();
+    // add("Title", title);
 }

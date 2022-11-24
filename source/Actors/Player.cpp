@@ -4,13 +4,21 @@
 #include"../Hero/ThirdParty/SDL2/SDL.h"
 #include"../Hero/Core/Time.hpp"
 #include "GroundSelection.hpp"
+#include "../Hero/Systems/ActorScene/SceneSystem.hpp"
 #include "../Hero/Systems/ActorScene/Scene.hpp"
-
 #include<iostream>
 #include<cmath>
 
 #define SPEED 40.0f
 #define TURNSPEED 40.0f
+
+event(CameraOnResize)
+{
+  Hero::SceneSystem* sceneSystem = Hero::Core::getSystem<Hero::SceneSystem>(SID("Scene"));
+  Hero::Scene* scene = sceneSystem->GetCurrentScene();
+  Hero::Camera* camera = (Hero::Camera*)((Player*)scene->GetActor(SID("Player")))->cameraActor->GetComponent<Hero::Camera>();
+  camera->SetSize(*(Hero::Int2*)args);
+}
 
 Player::Player(const Hero::Sid& NewId)
  : Hero::Actor(NewId)
@@ -21,6 +29,9 @@ Player::Player(const Hero::Sid& NewId)
 void Player::Start()
 {
   Hero::Actor::Start();
+
+  window = Hero::Core::getSystem<Hero::System::Window>(SID("Window"));
+  window->setEvent(Hero::System::WindowEventType::RESIZED, CameraOnResize);
 
   cameraActor = new Hero::Actor(SID("Camera"));
   camera = new Hero::Camera();
@@ -103,9 +114,11 @@ Hero::Float3 Player::GetPointUnderCursor()
 
   Hero::Int2 mousePosition = input->getMousePosition();
 
+  Hero::Int2 windowSize = window->getSize();
+
   Hero::Float4 screenCoord(
-    (2.0f * (float)mousePosition.x / 1280.0f) - 1.0f, 
-    1.0f - (2.0f * (float)mousePosition.y / 720.0f), 
+    (2.0f * (float)mousePosition.x / windowSize.x) - 1.0f, 
+    1.0f - (2.0f * (float)mousePosition.y / windowSize.y), 
     1.0f, 1.0f);
 
   Hero::Float4 worldPos = invViewMat * invProjectionMat * screenCoord;
