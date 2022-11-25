@@ -5,7 +5,7 @@
 
 class Building : public Hero::Actor
 {
-private:
+protected:
   Hero::StaticMesh* staticMesh = nullptr;
 
   Hero::Int2 size = Hero::Int2::one();
@@ -14,7 +14,6 @@ public:
   Building(const Hero::Sid& NewId);
 
   virtual void Start() override;
-  virtual void Update() override;
   virtual void End() override;
 
   Hero::Actor* Clone() override;

@@ -3,7 +3,7 @@
 #include"../Hero/Core/Core.hpp"
 #include"../Hero/ThirdParty/SDL2/SDL.h"
 #include"../Hero/Core/Time.hpp"
-#include "GroundSelection.hpp"
+#include "Selector.hpp"
 #include "../Hero/Systems/ActorScene/SceneSystem.hpp"
 #include "../Hero/Systems/ActorScene/Scene.hpp"
 #include<iostream>
@@ -40,13 +40,13 @@ void Player::Start()
   camera->SetNearFarPlane(0.1f, 1000.0f);
   cameraActor->AddComponent(camera);
   cameraActor->GetTransformRef()->SetLocalRotation(Hero::Quaternion(0.0f, Hero::deg2rad(30.0f), 0.0f));
-  cameraActor->GetTransformRef()->SetLocalPosition(Hero::Float3(0.0f, 5.7f, -10.0f));
+  cameraActor->GetTransformRef()->SetLocalPosition(Hero::Float3(0.0f, 10.0f, -10.0f));
   AddChild(cameraActor);
 
   invProjectionMat = camera->GetProjectionMatrix().inverted();
 
-  selection = new GroundSelection(SID("GroundSelection"));
-  GetScene()->AddActor(selection);
+  selector = new Selector(SID("Selector"));
+  GetScene()->AddActor(selector);
   //selection->SetVisibility(false);
 }
 
@@ -58,7 +58,7 @@ void Player::Update()
 
   Hero::Float3 point = GetPointUnderCursor();
   point = {floorf(point.x) + 0.5f,floorf(point.y),floorf(point.z) + 0.5f};
-  selection->GetTransformRef()->SetLocalPosition(point);
+  selector->GetTransformRef()->SetLocalPosition(point);
 }
 
 void Player::End()

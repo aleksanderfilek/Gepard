@@ -10,6 +10,9 @@
 #include "../Hero/Graphics/Mesh.hpp"
 #include "../Actors/Player.hpp"
 #include "../Hero/Actors/Systems/ForwardRenderer.hpp"
+#include "../World/World.hpp"
+#include "../Buildings/WoodcutterHut.hpp"
+#include "../Units/Villager.hpp"
 
 #include<iostream>
 
@@ -18,6 +21,9 @@ void MainMenu::Load()
     Hero::Resources* resources = Hero::Core::getSystem<Hero::Resources>(SID("Resources"));
     resources->Add(SID("RendererShader"), PATH(assets/rendererShader.he));
     resources->Add(SID("S_Spritebatch"), PATH(assets/S_Spritebatch.he));
+    resources->Add(SID("S_Basic"), PATH(assets/S_Basic.he));
+    resources->Add(SID("T_ColorPalette"), PATH(assets/buildings/T_ColorPalette.he));
+    resources->Add(SID("S_Billboard"), PATH(assets/S_Billboard.he));
 }
 
 void MainMenu::Start()
@@ -37,7 +43,10 @@ void MainMenu::Start()
     ui->add("MainMenu", mainMenu);
 
     AddActor(new Hero::ForwardRenderer(SID("Renderer")));
+    AddActor(new World(SID("World")));
     AddActor(new Player(SID("Player")));
+    AddActor(new WoodcutterHut(SID("Woodcutter")));
+    AddActor(new Villager(SID("Villager")));
 }
 
 void MainMenu::Update()

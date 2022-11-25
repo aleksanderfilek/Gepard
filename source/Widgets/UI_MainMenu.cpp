@@ -16,19 +16,19 @@ UI_MainMenu::UI_MainMenu() : Hero::UI::Widget()
     Hero::Resources* resources = Hero::Core::getSystem<Hero::Resources>(SID("Resources"));
     resources->Add(SID("UI_MainMenu_Panel"), PATH(assets/ui/UI_MainMenu_Panel.he));
     resources->Add(SID("Arial48"), PATH(assets/ui/arial.he));
-
+    
     Hero::UI::Image* panel = new Hero::UI::Image();
     panel->setTexture((Hero::Texture*)resources->Get(SID("UI_MainMenu_Panel")));
     panel->SetRelativeTransform(Hero::Int4(0, 0, 0, 50), 
-    Hero::UI::HorizontalAnchor::STRETCH, Hero::UI::VerticalAnchor::TOP);
+        Hero::UI::HorizontalAnchor::STRETCH, Hero::UI::VerticalAnchor::TOP);
     add("panel", panel);
-    
-    // Hero::UI::Label* title = new Hero::UI::Label();
-    // title->setAlligment(Hero::UI::Alligment::CENTER);
-    // title->SetRelativeTransform(Hero::Int4(0, 0, 0, 50), 
-    //     Hero::UI::HorizontalAnchor::STRETCH, Hero::UI::VerticalAnchor::TOP);
-    // title->setFont((Hero::Font*)resources->Get(SID("Arial48")));
-    // title->setText("Gepard");
-    // title->apply();
-    // add("Title", title);
+
+    Hero::UI::Label* title = new Hero::UI::Label();
+    title->setAlligment(Hero::UI::Alligment::CENTER);
+    title->SetRelativeTransform(Hero::Int4(0, 0, 0, 50), 
+        Hero::UI::HorizontalAnchor::STRETCH, Hero::UI::VerticalAnchor::TOP);
+    title->setFont((Hero::Font*)resources->Get(SID("Arial48")));
+    title->setText("Gepard");
+    title->apply();
+    add("Title", title);
 }

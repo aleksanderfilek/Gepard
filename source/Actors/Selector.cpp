@@ -1,50 +1,49 @@
-#include "GroundSelection.hpp"
+#include "Selector.hpp"
 #include "../Hero/Systems/Resources.hpp"
 #include "../Hero/Core/Core.hpp"
 #include "../Hero/Graphics/Mesh.hpp"
 #include "../Hero/Graphics/Material.hpp"
 #include "../Defaults.hpp"
 
-GroundSelection::GroundSelection(const Hero::Sid& NewId)
+Selector::Selector(const Hero::Sid& NewId)
  : Hero::Actor(NewId)
 {
 
 }
 
-void GroundSelection::Start()
+void Selector::Start()
 {
     Hero::Actor::Start();
+    
     Hero::Resources* resources = Hero::Core::getSystem<Hero::Resources>(SID("Resources"));
-    resources->Add(SID("S_GroundSelection"), PATH(assets/groundSelection/S_GroundSelection.he));
-    resources->Add(SID("T_GroundSelection"), PATH(assets/groundSelection/T_GroundSelection.he));
-    resources->Add(SID("M_GroundSelection"), PATH(assets/groundSelection/M_GroundSelection.he));
+    resources->Add(SID("T_Selector"), PATH(assets/selector/T_Selector.he));
+    resources->Add(SID("Mat_Selector"), PATH(assets/selector/Mat_Selector.he));
     resources->Add(SID("Plane1x1"), PATH(assets/basic/Plane1x1.he));
 
     staticMesh = new Hero::StaticMesh();
     staticMesh->SetMesh((Hero::Mesh*)resources->Get(SID("Plane1x1")));
-    staticMesh->SetMaterial((Hero::Material*)resources->Get(SID("M_GroundSelection")));
+    staticMesh->SetMaterial((Hero::Material*)resources->Get(SID("Mat_Selector")));
     AddComponent(staticMesh);
-
 }
 
-void GroundSelection::Update()
+void Selector::Update()
 {
     Hero::Actor::Update();
 }
 
-void GroundSelection::End()
+void Selector::End()
 {
     Hero::Actor::End();
 }
 
-Hero::Actor* GroundSelection::Clone()
+Hero::Actor* Selector::Clone()
 {
-  Hero::Actor* actor = new GroundSelection(GetName());
+  Hero::Actor* actor = new Selector(GetName());
   //actor->SetTransform(actor->GetTransform());
   return actor;
 }
 
-void GroundSelection::SetVisibility(bool Visibile)
+void Selector::SetVisibility(bool Visibile)
 {
     staticMesh->SetVisibility(Visibile);
 }

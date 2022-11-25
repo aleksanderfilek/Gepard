@@ -9,7 +9,7 @@
 #include <vector>
 #include <unordered_map>
 #include <typeinfo>
-#include <iostream>
+
 namespace Hero
 {
 
@@ -65,10 +65,6 @@ public:
     template<class T> 
     class ActorComponent* GetComponent()
     {
-        for(auto i: componentsLut)
-        {
-            std::cout<<i.first<<std::endl;
-        }
         auto result = componentsLut.find(GetType<T>());
         if(result == componentsLut.end())
         {

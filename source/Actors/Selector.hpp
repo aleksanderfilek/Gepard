@@ -4,13 +4,13 @@
 #include "../Hero/Core/Sid.hpp"
 #include "../Hero/Components/StaticMesh.hpp"
 
-class GroundSelection : public Hero::Actor
+class Selector : public Hero::Actor
 {
 private:
     Hero::StaticMesh* staticMesh = nullptr;
 
 public:
-    GroundSelection(const Hero::Sid& NewId);
+    Selector(const Hero::Sid& NewId);
 
     virtual void Start() override;
     virtual void Update() override;

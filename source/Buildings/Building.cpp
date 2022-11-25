@@ -10,27 +10,22 @@ Building::Building(const Hero::Sid& NewId) : Hero::Actor(NewId)
 
 void Building::Start()
 {
-  Hero::Actor::Start();
-
   Pathfinding* pathfinding = (Pathfinding*)GetScene()->GetActor(SID("World"))->GetComponent<Pathfinding>();
   Hero::Float3 absolutPosition = GetTransform().GetWorldPosition();
-  Hero::Int2 position((int)floorf(absolutPosition.x),(int)floorf(absolutPosition.z));
+  Hero::Int2 position((int)floorf(absolutPosition.x) - size.x/2, (int)floorf(absolutPosition.z) - size.y/2);
   pathfinding->SetWalkableState(position, size, false);
-}
-
-void Building::Update()
-{
-  Hero::Actor::Update();
+  
+  Hero::Actor::Start();
 }
 
 void Building::End()
 {
-  Hero::Actor::End();
-
   Pathfinding* pathfinding = (Pathfinding*)GetScene()->GetActor(SID("World"))->GetComponent<Pathfinding>();
   Hero::Float3 absolutPosition = GetTransform().GetWorldPosition();
   Hero::Int2 position((int)floorf(absolutPosition.x),(int)floorf(absolutPosition.z));
   pathfinding->SetWalkableState(position, size, true);
+
+  Hero::Actor::End();
 }
 
 Hero::Actor* Building::Clone()

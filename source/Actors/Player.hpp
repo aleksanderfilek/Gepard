@@ -19,7 +19,7 @@ private:
   Hero::Camera* camera;
   Hero::Matrix4x4 invProjectionMat;
 
-  class GroundSelection* selection = nullptr;
+  class Selector* selector = nullptr;
 
 public:
   Player(const Hero::Sid& NewId);
