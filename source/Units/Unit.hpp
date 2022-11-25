@@ -7,7 +7,8 @@ class Unit : public Hero::Actor
 {
 protected:
   Hero::StaticMesh* staticMesh = nullptr;
-
+  Hero::Actor* camera = nullptr;
+  
   class Pathfinding* pathfinding;
 
   Hero::Float2* path = nullptr;

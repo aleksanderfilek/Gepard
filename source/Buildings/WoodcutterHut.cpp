@@ -17,7 +17,6 @@ void WoodcutterHut::Start()
   AddComponent(staticMesh);
 
   GetTransformRef()->SetLocalPosition(Hero::Float3(4.0f, 0.0f, 4.0f));
-  GetTransformRef()->SetLocalScale(Hero::Float3(0.5f, 0.5f, 0.5f));
 
   size = Hero::Int2(2, 2);
 

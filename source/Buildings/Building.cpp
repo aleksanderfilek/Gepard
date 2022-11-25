@@ -12,7 +12,7 @@ void Building::Start()
 {
   Pathfinding* pathfinding = (Pathfinding*)GetScene()->GetActor(SID("World"))->GetComponent<Pathfinding>();
   Hero::Float3 absolutPosition = GetTransform().GetWorldPosition();
-  Hero::Int2 position((int)floorf(absolutPosition.x) - size.x/2, (int)floorf(absolutPosition.z) - size.y/2);
+  Hero::Int2 position((int)floorf(absolutPosition.x), (int)floorf(absolutPosition.z));
   pathfinding->SetWalkableState(position, size, false);
   
   Hero::Actor::Start();

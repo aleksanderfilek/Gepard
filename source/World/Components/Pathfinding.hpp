@@ -8,7 +8,7 @@ struct NavNode
   Hero::Int2 position;
   float hCost = 0.0f;
   float gCost = 0.0f;
-  NavNode* parent = nullptr;
+  int parent = -1;
   float GetFCost() { return gCost + hCost; }
 };
 

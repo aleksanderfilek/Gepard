@@ -7,6 +7,7 @@
 #include"Hero/Systems/ActorScene/SceneSystem.hpp"
 #include"Hero/Systems/UserInterface.hpp"
 #include"Hero/Systems/Resources.hpp"
+#include"Hero/Systems/Profiler.hpp"
 
 #include"Levels/MainMenu.hpp"
 
@@ -27,6 +28,7 @@ int WinMain(int argc, char* argv[])
   core->addSystem(new Hero::SceneSystem(SID("Scene"), new MainMenu()));
   core->addSystem(new Hero::System::UserInterface(SID("Ui"),SID("Window"),SID("Input")));
   core->addSystem(new Hero::Resources(SID("Resources")));
+  core->addSystem(new Hero::System::Profiler(SID("Profiler")));
 
   Hero::System::Event* event = core->getSystem<Hero::System::Event>(SID("Event"));
   Hero::System::Window* window = core->getSystem<Hero::System::Window>(SID("Window"));

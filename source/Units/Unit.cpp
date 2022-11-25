@@ -14,14 +14,28 @@ void Unit::Start()
 
   pathfinding = (Pathfinding*)GetScene()->GetActor(SID("World"))->GetComponent<Pathfinding>();
 
-  GetTransformRef()->SetLocalPosition(Hero::Float3(0.5f, 0.0f, 0.5f));
+  camera = GetScene()->GetActor(SID("Camera"));
 }
 
 void Unit::Update()
 {
   Hero::Actor::Update();
 
-  if(path == nullptr) return;
+  Hero::Float3 cameraProjection = camera->GetTransformRef()->GetWorldPosition();
+  cameraProjection.y = 0.0f;
+  Hero::Float3 currentPosition = GetTransformRef()->GetWorldPosition();
+  Hero::Float3 dir = cameraProjection - currentPosition;
+  dir.normalize();
+  float angle = acosf(Hero::dotProduct(Hero::Float3::forward(), dir));
+  if(cameraProjection.x < 0.0f)
+   angle *= -1.0f;
+  Hero::Quaternion rotation(angle - 90.0f, Hero::Float3::up());
+  GetTransformRef()->SetLocalRotation(rotation);
+
+
+
+  if(path == nullptr) 
+    return;
 
   double deltaTime = Hero::Time::getDeltaTime();
 
@@ -37,6 +51,7 @@ void Unit::Update()
     currentPathPoint++;
     if(currentPathPoint == pathLength)
     {
+      delete[] path;
       path = nullptr;
     }
   }
@@ -59,6 +74,4 @@ void Unit::MoveTo(const Hero::Float2& Position)
   Hero::Float3 position = GetTransform().GetLocalPosition();
   pathfinding->GetPathToPoint(Hero::Float2(position.x, position.z), Position, path, pathLength);
   currentPathPoint = 1;
-  for(int i = 0; i < pathLength; i++)
-    std::cout<<path[i]<<std::endl;
 }

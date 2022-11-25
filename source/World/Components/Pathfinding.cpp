@@ -50,31 +50,33 @@ Hero::Int2 Pathfinding::WorldToArea(const Hero::Float2& Point)
 
 bool Pathfinding::GetPathToPoint(Hero::Float2 StartPoint, Hero::Float2 DestinationPoint, Hero::Float2*& Path, uint32_t& PathLenght)
 {
-  NavNode startNode = { WorldToArea(StartPoint), CalculatehCost(WorldToArea(StartPoint), WorldToArea(DestinationPoint)) };
+  NavNode startNode = { WorldToArea(StartPoint), CalculatehCost(WorldToArea(StartPoint), WorldToArea(DestinationPoint)), 0.0f};
   NavNode destinationNode = { WorldToArea(DestinationPoint) };
 
-  std::vector<NavNode*> openList;
-  std::vector<NavNode*> closeList;
+  std::vector<int> openList;
+  std::vector<int> closeList;
   std::vector<NavNode> nodes;
 
   nodes.push_back(startNode);
-  openList.push_back(&nodes[0]);
+  openList.push_back(0);
 
   while(openList.size() > 0)
   {
     int nodeWithLowestFCostIndex = 0;
     for(int i = 1; i < openList.size(); i++)
     {
-      if(openList[nodeWithLowestFCostIndex]->GetFCost() > openList[i]->GetFCost())
+      if(nodes[openList[nodeWithLowestFCostIndex]].GetFCost() > nodes[openList[i]].GetFCost())
       {
         nodeWithLowestFCostIndex = i;
       }
     }
 
-    NavNode* currentNode = openList[nodeWithLowestFCostIndex];
-        closeList.push_back(openList[nodeWithLowestFCostIndex]);
+    int current = openList[nodeWithLowestFCostIndex];
+    NavNode currentNode = nodes[openList[nodeWithLowestFCostIndex]];
+    closeList.push_back(current);
     openList.erase(openList.begin() + nodeWithLowestFCostIndex);
-    if(currentNode->position == destinationNode.position)
+
+    if(currentNode.position == destinationNode.position)
     {
       break;
     }
@@ -88,25 +90,24 @@ bool Pathfinding::GetPathToPoint(Hero::Float2 StartPoint, Hero::Float2 Destinati
           continue;
         }
 
-        Hero::Int2 coord = currentNode->position + (Hero::Int2){ x, y };
-
+        Hero::Int2 coord = currentNode.position + (Hero::Int2){ x, y };
         if(!IsValidCoord(coord) || !walkableArea[CoordToIndex(coord)])
         {
           continue;
         }
 
-        float cost = currentNode->gCost + CalculatehCost(currentNode->position, coord);
-        NavNode neighbourNode = {coord, CalculatehCost(coord, destinationNode.position), cost, currentNode};
+        float cost = currentNode.gCost + CalculatehCost(currentNode.position, coord);
+        NavNode neighbourNode = {coord, CalculatehCost(coord, destinationNode.position), cost, current};
 
         bool skip = false;
         bool closeContains = false;
         for(int i = 0; i < closeList.size(); i++)
         {
-          if(closeList[i]->position == coord)
+          if(nodes[closeList[i]].position == coord)
           {
             closeContains = true;
 
-            if(closeList[i]->GetFCost() <= neighbourNode.GetFCost())
+            if(nodes[closeList[i]].GetFCost() <= neighbourNode.GetFCost())
             {
               skip = true;
               break;
@@ -127,11 +128,11 @@ bool Pathfinding::GetPathToPoint(Hero::Float2 StartPoint, Hero::Float2 Destinati
           bool openContains = false;
           for(int i = 0; i < openList.size(); i++)
           {
-            if(openList[i]->position == coord)
+            if(nodes[openList[i]].position == coord)
             {
               openContains = true;
 
-              if(openList[i]->GetFCost() <= neighbourNode.GetFCost())
+              if(nodes[openList[i]].GetFCost() <= neighbourNode.GetFCost())
               {
                 skip = true;
                 break;
@@ -151,7 +152,7 @@ bool Pathfinding::GetPathToPoint(Hero::Float2 StartPoint, Hero::Float2 Destinati
         bool openContains = false;
         for(int i = 0; i < openList.size(); i++)
         {
-          if(openList[i]->position == coord)
+          if(nodes[openList[i]].position == coord)
           {
             openContains = true;
             break;
@@ -160,35 +161,26 @@ bool Pathfinding::GetPathToPoint(Hero::Float2 StartPoint, Hero::Float2 Destinati
         if(!openContains)
         {
           nodes.push_back(neighbourNode);
-          openList.push_back(&nodes[nodes.size()-1]);
+          openList.push_back(nodes.size()-1);
         }
       }
     }
   }
-
-  if(closeList[closeList.size()-1]->position != destinationNode.position)
+  if(nodes[closeList[closeList.size()-1]].position != destinationNode.position)
   {
     return false;
   }
 
-  for(auto point: closeList)
-  {
-    std::cout<<point->position;
-    if(point->parent)
-    std::cout<<" -> "<<point->parent->position<<std::endl;
-    else
-    std::cout<<std::endl;
-  }
-
   std::vector<Hero::Int2> reversedPath;
 
-  NavNode* currentNode = closeList[closeList.size()-1];
-  while(currentNode->parent)
+  int current = closeList[closeList.size()-1];
+  while(nodes[current].parent > -1)
   {
-    reversedPath.push_back(currentNode->position);
-    currentNode = currentNode->parent;
+    reversedPath.push_back(nodes[current].position);
+    current = nodes[current].parent;
   }
-  reversedPath.push_back(closeList[0]->position);
+
+  reversedPath.push_back(nodes[closeList[0]].position);
 
   Path = new Hero::Float2[reversedPath.size()];
   PathLenght = reversedPath.size();
