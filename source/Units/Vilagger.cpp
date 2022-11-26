@@ -26,7 +26,7 @@ void Villager::Start()
 
   Unit::Start();
 
-  // MoveTo(Hero::Float2(0.5f, 0.5f));
+  // MoveTo(Hero::Float2(10.0f, 10.0f));
 }
 
 void Villager::Update()

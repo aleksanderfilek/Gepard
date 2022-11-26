@@ -17,6 +17,7 @@
 #include <sstream>
 #include<iostream>
 #include "../Buildings/Tree.hpp"
+#include "../Buildings/Warehouse.hpp"
 
 void MainMenu::Load()
 {
@@ -50,6 +51,7 @@ void MainMenu::Start()
     AddActor(new WoodcutterHut(SID("Woodcutter")));
     AddActor(new Villager(SID("Villager")));
     AddActor(new Tree(SID("Tree")));
+    AddActor(new Warehouse(SID("Warehouse")));
 }
 
 void MainMenu::Update()
