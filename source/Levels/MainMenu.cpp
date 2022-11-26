@@ -16,6 +16,7 @@
 #include "../Hero/Core/Random.hpp"
 #include <sstream>
 #include<iostream>
+#include "../Buildings/Tree.hpp"
 
 void MainMenu::Load()
 {
@@ -23,7 +24,7 @@ void MainMenu::Load()
     resources->Add(SID("RendererShader"), PATH(assets/rendererShader.he));
     resources->Add(SID("S_Spritebatch"), PATH(assets/S_Spritebatch.he));
     resources->Add(SID("S_Basic"), PATH(assets/S_Basic.he));
-    resources->Add(SID("T_ColorPalette"), PATH(assets/buildings/T_ColorPalette.he));
+    resources->Add(SID("T_ColorPalette"), PATH(assets/T_ColorPalette.he));
     resources->Add(SID("S_Billboard"), PATH(assets/S_Billboard.he));
 }
 
@@ -32,7 +33,7 @@ void MainMenu::Start()
     Scene::Start();
 
     window = Hero::Core::getSystem<Hero::System::Window>(SID("Window"));
-    window->setBackgroundColor({215,227,224,0xFF});
+    window->setBackgroundColor({0xFE,0xF1,0xCF,0xFF});
     window->setDepthTest(true);
     
     Hero::Resources* resources = Hero::Core::getSystem<Hero::Resources>(SID("Resources"));
@@ -48,6 +49,7 @@ void MainMenu::Start()
     AddActor(new Player(SID("Player")));
     AddActor(new WoodcutterHut(SID("Woodcutter")));
     AddActor(new Villager(SID("Villager")));
+    AddActor(new Tree(SID("Tree")));
 }
 
 void MainMenu::Update()

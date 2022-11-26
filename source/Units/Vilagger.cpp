@@ -22,6 +22,8 @@ void Villager::Start()
   staticMesh->SetMaterial((Hero::Material*)resources->Get(SID("Mat_Villager")));
   AddComponent(staticMesh);
 
+  GetTransformRef()->SetLocalPosition(Hero::Float3(0.5f, 0.0f, 0.5f));
+
   Unit::Start();
 
   // MoveTo(Hero::Float2(0.5f, 0.5f));

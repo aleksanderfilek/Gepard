@@ -21,19 +21,37 @@ void Unit::Update()
 {
   Hero::Actor::Update();
 
-  Hero::Float3 cameraProjection = camera->GetTransformRef()->GetWorldPosition();
-  cameraProjection.y = 0.0f;
-  Hero::Float3 currentPosition = GetTransformRef()->GetWorldPosition();
-  Hero::Float3 dir = cameraProjection - currentPosition;
-  dir.normalize();
-  float angle = acosf(Hero::dotProduct(Hero::Float3::forward(), dir));
-  if(cameraProjection.x < 0.0f)
+  Hero::Float3 cameraForwardVector = camera->GetTransformRef()->GetWorldRotation().GetForwardVector();
+  cameraForwardVector.y = 0.0f;
+  cameraForwardVector.normalize();
+
+  Hero::Float3 forwardVector = GetTransformRef()->GetWorldRotation().GetForwardVector();
+
+  float angle = acosf(Hero::dotProduct(cameraForwardVector, Hero::Float3::forward()));
+
+  if(cameraForwardVector.x < 0.0f)
    angle *= -1.0f;
+
   Hero::Quaternion rotation(angle - 90.0f, Hero::Float3::up());
   GetTransformRef()->SetLocalRotation(rotation);
 
+  MoveAlongPath();
+}
 
+void Unit::End()
+{
+  Hero::Actor::End();
+}
 
+Hero::Actor* Unit::Clone()
+{
+  Hero::Actor* actor = new Unit(GetName());
+  //actor->SetTransform(actor->GetTransform());
+  return actor;
+}
+
+void Unit::MoveAlongPath()
+{
   if(path == nullptr) 
     return;
 
@@ -55,18 +73,6 @@ void Unit::Update()
       path = nullptr;
     }
   }
-}
-
-void Unit::End()
-{
-  Hero::Actor::End();
-}
-
-Hero::Actor* Unit::Clone()
-{
-  Hero::Actor* actor = new Unit(GetName());
-  //actor->SetTransform(actor->GetTransform());
-  return actor;
 }
 
 void Unit::MoveTo(const Hero::Float2& Position)

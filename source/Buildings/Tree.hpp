@@ -2,13 +2,12 @@
 
 #include "WorldObject.hpp"
 
-class Building : public WorldObject
+class Tree : public WorldObject
 {
 public:
-  Building(const Hero::Sid& NewId);
+  Tree(const Hero::Sid& NewId);
 
   virtual void Start() override;
-  virtual void End() override;
 
   Hero::Actor* Clone() override;
 };

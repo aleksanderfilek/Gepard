@@ -17,6 +17,8 @@ protected:
 
   float moveSpeed = 1.0f;
 
+  void MoveAlongPath();
+
 public:
   Unit(const Hero::Sid& NewId);
 

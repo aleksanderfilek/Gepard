@@ -3,29 +3,19 @@
 #include "../World/World.hpp"
 #include "../World/Components/Pathfinding.hpp"
 
-Building::Building(const Hero::Sid& NewId) : Hero::Actor(NewId)
+Building::Building(const Hero::Sid& NewId) : WorldObject(NewId)
 {
 
 }
 
 void Building::Start()
 {
-  Pathfinding* pathfinding = (Pathfinding*)GetScene()->GetActor(SID("World"))->GetComponent<Pathfinding>();
-  Hero::Float3 absolutPosition = GetTransform().GetWorldPosition();
-  Hero::Int2 position((int)floorf(absolutPosition.x), (int)floorf(absolutPosition.z));
-  pathfinding->SetWalkableState(position, size, false);
-  
-  Hero::Actor::Start();
+  WorldObject::Start();
 }
 
 void Building::End()
 {
-  Pathfinding* pathfinding = (Pathfinding*)GetScene()->GetActor(SID("World"))->GetComponent<Pathfinding>();
-  Hero::Float3 absolutPosition = GetTransform().GetWorldPosition();
-  Hero::Int2 position((int)floorf(absolutPosition.x),(int)floorf(absolutPosition.z));
-  pathfinding->SetWalkableState(position, size, true);
-
-  Hero::Actor::End();
+  WorldObject::End();
 }
 
 Hero::Actor* Building::Clone()
