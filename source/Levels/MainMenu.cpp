@@ -47,21 +47,7 @@ void MainMenu::Start()
     AddActor(new World(SID("World")));
     AddActor(new Player(SID("Player")));
     AddActor(new WoodcutterHut(SID("Woodcutter")));
-
-    // AddActor(new Villager(SID("Villager")));
-
-    for(int i = 0; i < 10; i++)
-    {
-        std::stringstream  ss;
-        ss<<"Vilager"<<std::to_string(i);
-        Villager* unit = new Villager(SID(ss.str().c_str()));
-        Hero::Float3 position((float)Hero::randomGetInt(0, 48) + 0.5f, 0.0f, (float)Hero::randomGetInt(0, 48) + 0.5f);
-        unit->GetTransformRef()->SetLocalPosition(position);
-        Hero::Float2 destPoint((float)Hero::randomGetInt(0, 49) + 0.5f, (float)Hero::randomGetInt(0, 49) + 0.5f);
-        AddActor(unit);
-        unit->MoveTo(destPoint);        
-        // unit->MoveTo(Hero::Float2(0.5f, 0.5f));
-    }
+    AddActor(new Villager(SID("Villager")));
 }
 
 void MainMenu::Update()
