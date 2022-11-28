@@ -5,6 +5,9 @@
 
 class WorldObject : public Hero::Actor
 {
+private:
+  class World* worldRef = nullptr;
+
 protected:
   Hero::StaticMesh* staticMesh = nullptr;
 
@@ -17,4 +20,6 @@ public:
   virtual void End() override;
 
   Hero::Actor* Clone() override;
+
+  class World* GetWorld(){ return worldRef; }
 };

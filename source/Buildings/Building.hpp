@@ -1,6 +1,6 @@
 #pragma once
 
-#include "WorldObject.hpp"
+#include "../World/WorldObject.hpp"
 
 class Building : public WorldObject
 {

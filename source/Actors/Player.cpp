@@ -35,7 +35,7 @@ void Player::Start()
 
   cameraActor = new Hero::Actor(SID("Camera"));
   camera = new Hero::Camera();
-  camera->SetSize({1280,720});
+  camera->SetSize(window->getSize());
   camera->SetFov(70.0f);
   camera->SetNearFarPlane(0.1f, 1000.0f);
   cameraActor->AddComponent(camera);
@@ -47,7 +47,7 @@ void Player::Start()
 
   selector = new Selector(SID("Selector"));
   GetScene()->AddActor(selector);
-  //selection->SetVisibility(false);
+  selector->SetVisibility(false);
 }
 
 void Player::Update()

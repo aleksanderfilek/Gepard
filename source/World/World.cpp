@@ -10,6 +10,8 @@ void World::Start()
   Hero::Actor::Start();
   pathfinding = new Pathfinding(50, 50);
   AddComponent(pathfinding);
+
+  worldObjects = new QuadTree<class WorldObject>(Hero::Float4(0.0f, 0.0f, 50.0f, 50.0f));
 }
 
 void World::Update()
@@ -20,6 +22,8 @@ void World::Update()
 void World::End()
 {
   Hero::Actor::End();
+
+  delete worldObjects;
 }
 
 Hero::Actor* World::Clone()

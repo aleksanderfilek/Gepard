@@ -51,6 +51,7 @@
         "xutility": "cpp",
         "set": "cpp",
         "unordered_set": "cpp",
-        "sstream": "cpp"
+        "sstream": "cpp",
+        "fstream": "cpp"
     }
 }

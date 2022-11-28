@@ -19,6 +19,27 @@
 #include "../Buildings/Tree.hpp"
 #include "../Buildings/Warehouse.hpp"
 
+#include "../Utilities/DataTable.hpp"
+
+struct tests : public TableRow
+{
+    std::string x;
+    int a;
+    void Serialize(std::vector<std::string>& Out);
+    void Deserialize(const std::vector<std::string>& In);
+};
+
+void tests::Serialize(std::vector<std::string>& Out)
+{
+
+}
+
+void tests::Deserialize(const std::vector<std::string>& In)
+{
+    x = In[0];
+    a = std::stoi(In[1]);
+}
+
 void MainMenu::Load()
 {
     Hero::Resources* resources = Hero::Core::getSystem<Hero::Resources>(SID("Resources"));
@@ -31,6 +52,10 @@ void MainMenu::Load()
 
 void MainMenu::Start()
 {
+    DataTable<tests> testDT("bin/assets/dt.csv");
+    tests* element = testDT.GetRow(SID("name1"));
+    std::cout<<element->x<<", "<<element->a<<std::endl;
+
     Scene::Start();
 
     window = Hero::Core::getSystem<Hero::System::Window>(SID("Window"));
