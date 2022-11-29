@@ -12,7 +12,7 @@
 #define SPEED 40.0f
 #define TURNSPEED 40.0f
 
-event(CameraOnResize)
+static event(CameraOnResize)
 {
   Hero::SceneSystem* sceneSystem = Hero::Core::getSystem<Hero::SceneSystem>(SID("Scene"));
   Hero::Scene* scene = sceneSystem->GetCurrentScene();

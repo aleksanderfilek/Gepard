@@ -7,8 +7,6 @@
 #include "../Hero/Systems/Window.hpp"
 #include "../Hero/Core/Events.hpp"
 
-event(CameraOnResize);
-
 class Player : public Hero::Actor
 {
 private:
