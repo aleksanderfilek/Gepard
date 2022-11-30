@@ -8,15 +8,32 @@
 #include "../../Hero/Graphics/Font.hpp"
 #include "../../Hero/ThirdParty/GL/Gl.hpp"
 #include "../../Hero/UserInterface/VerticalStack.hpp"
-
+#include "../../Hero/Systems/ActorScene/SceneSystem.hpp"
+#include "../../Hero/Systems/ActorScene/Scene.hpp"
 #include "../../Hero/Core/Events.hpp"
 
 #include "../Button.hpp"
+#include "../../Levels/MainMenu.hpp"
 
-event(BuildingBtn_Click)
+#include <iostream>
+
+static event(PlayBtn_Click)
 {
-    Hero::UI::Image* buildingPanel = (Hero::UI::Image*)args;
-    buildingPanel->setVisibility(!buildingPanel->isVisible());
+    Hero::SceneSystem* sceneSystem = Hero::Core::getSystem<Hero::SceneSystem>(SID("Scene"));
+    MainMenu* scene = (MainMenu*)sceneSystem->GetCurrentScene();
+    scene->ChangeMenu(1);
+}
+
+static event(SettingsBtn_Click)
+{
+    Hero::SceneSystem* sceneSystem = Hero::Core::getSystem<Hero::SceneSystem>(SID("Scene"));
+    MainMenu* scene = (MainMenu*)sceneSystem->GetCurrentScene();
+    scene->ChangeMenu(2);
+}
+
+static event(QuitBtn_Click)
+{
+    Hero::Core::close();
 }
 
 UI_MainMenu::UI_MainMenu() : Hero::UI::Widget()
@@ -31,14 +48,17 @@ UI_MainMenu::UI_MainMenu() : Hero::UI::Widget()
     Hero::UI::IElement* playBtn = CreateButton("Play", 
         (Hero::Font*)resources->Get(SID("Arial48")), (Hero::Texture*)resources->Get(SID("UI_MainMenu_Panel")));
     playBtn->SetRelativeTransform(Hero::Int4(0, 0, 200, 50));
+    playBtn->addEvent(Hero::UI::Event::OnLeftClick, PlayBtn_Click, this);
 
     Hero::UI::IElement* settingsBtn = CreateButton("Settings", 
         (Hero::Font*)resources->Get(SID("Arial48")), (Hero::Texture*)resources->Get(SID("UI_MainMenu_Panel")));
     settingsBtn->SetRelativeTransform(Hero::Int4(0, 0, 200, 50));
+    settingsBtn->addEvent(Hero::UI::Event::OnLeftClick, SettingsBtn_Click, this);
 
     Hero::UI::IElement* quitBtn = CreateButton("Quit", 
         (Hero::Font*)resources->Get(SID("Arial48")), (Hero::Texture*)resources->Get(SID("UI_MainMenu_Panel")));
     quitBtn->SetRelativeTransform(Hero::Int4(0, 0, 200, 50));
+    quitBtn->addEvent(Hero::UI::Event::OnLeftClick, QuitBtn_Click, this);
 
     Hero::UI::VerticalStack* verticalPanel = new Hero::UI::VerticalStack();
     verticalPanel->setSpacing(10);

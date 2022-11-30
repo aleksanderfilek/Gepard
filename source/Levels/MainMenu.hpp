@@ -11,13 +11,13 @@ private:
     Hero::System::Window* window;
     Hero::System::UserInterface* ui;
 
-    Hero::UI::Widget* widgets[1];
+    Hero::UI::Widget* widgets[3];
     int currentWidgetIndex = 0;
-
-    void ChangeWidget(int Index);
 
 public:
     void Load() override;
     void Start() override;
     void Update() override;
+
+    void ChangeMenu(int Index);
 };
