@@ -18,6 +18,7 @@ public:
     void Load() override;
     void Start() override;
     void Update() override;
+    void End() override;
 
     void ChangeMenu(int Index);
 };

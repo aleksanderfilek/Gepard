@@ -25,7 +25,7 @@ void MainMenu::Load()
 
 void MainMenu::Start()
 {
-    Scene::Start();
+    Hero::Scene::Start();
 
     widgets[0] = new UI_MainMenu();
     ui->add("MainMenu", widgets[0]);
@@ -45,7 +45,13 @@ void MainMenu::Update()
 {
     Hero::System::Window::clear();
 
-    Scene::Update();
+    Hero::Scene::Update();
+}
+
+void MainMenu::End()
+{
+    Hero::Scene::End();
+    ui->Clear();
 }
 
 void MainMenu::ChangeMenu(int Index)
