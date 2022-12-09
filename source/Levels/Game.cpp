@@ -1,6 +1,11 @@
 #include "Game.hpp"
 #include "../Hero/Systems/Window.hpp"
 
+void Game::Load()
+{
+
+}
+
 void Game::Start()
 {
   Hero::Scene::Start();

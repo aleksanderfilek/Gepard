@@ -7,6 +7,7 @@ class Game : public Hero::Scene
 private:
 
 public:
+    void Load() override;
     void Start() override;
     void Update() override;
     void End() override;

@@ -53,7 +53,7 @@ UI_CampaignMenu::UI_CampaignMenu() : Hero::UI::Widget()
 
     Hero::UI::VerticalStack* verticalPanel = new Hero::UI::VerticalStack();
     verticalPanel->setSpacing(10);
-    verticalPanel->SetRelativeTransform(Hero::Int4(500, 100, 200, 400));
+    verticalPanel->SetRelativeTransform(Hero::Int4(300, 100, 200, 400));
     verticalPanel->add("playBtn", playBtn);
     verticalPanel->add("backBtn", backBtn);
 
